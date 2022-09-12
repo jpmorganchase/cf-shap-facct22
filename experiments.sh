@@ -1,0 +1,25 @@
+# Run experiments.
+python experiments.py --dataset heloc --results_version v5_close --action_strategy random --methods training_100 diff_pred_100 diff_label_100 knn1_qL1 knn3_qL1 knn5_qL1 knn10_qL1 knn20_qL1 knn50_qL1 knn100_qL1 knn250_qL1 knn500_qL1 knn1000_qL1 cone-knn100_qL1
+python experiments.py --dataset wines --results_version v5_far --action_strategy proportional --methods training_100 diff_pred_100 diff_label_100 knn1_qL1 knn3_qL1 knn5_qL1 knn10_qL1 knn20_qL1 knn50_qL1 knn100_qL1 knn250_qL1 knn500_qL1 knn1000_qL1 cone-knn100_qL1
+python experiments.py --dataset lendingclub --results_version v5_far --action_strategy random --methods training_100 diff_pred_100 diff_label_100 knn1_qL1 knn3_qL1 knn5_qL1 knn10_qL1 knn20_qL1 knn50_qL1 knn100_qL1 knn250_qL1 knn500_qL1 knn1000_qL1 cone-knn100_qL1
+
+python experiments.py --dataset lendingclub --results_version v5_close --action_strategy proportional --methods training_100 diff_pred_100 diff_label_100 knn1_qL1 knn3_qL1 knn5_qL1 knn10_qL1 knn20_qL1 knn50_qL1 knn100_qL1 knn250_qL1 knn500_qL1 knn1000_qL1 cone-knn100_qL1
+python experiments.py --dataset lendingclub --results_version v5_far --action_strategy proportional --methods training_100 diff_pred_100 diff_label_100 knn1_qL1 knn3_qL1 knn5_qL1 knn10_qL1 knn20_qL1 knn50_qL1 knn100_qL1 knn250_qL1 knn500_qL1 knn1000_qL1 cone-knn100_qL1
+python experiments.py --dataset lendingclub --results_version v5_close --action_strategy random --methods training_100 diff_pred_100 diff_label_100 knn1_qL1 knn3_qL1 knn5_qL1 knn10_qL1 knn20_qL1 knn50_qL1 knn100_qL1 knn250_qL1 knn500_qL1 knn1000_qL1 cone-knn100_qL1
+
+python experiments.py --dataset heloc --results_version v5_close --action_strategy proportional --methods training_100 diff_pred_100 diff_label_100 knn1_qL1 knn3_qL1 knn5_qL1 knn10_qL1 knn20_qL1 knn50_qL1 knn100_qL1 knn250_qL1 knn500_qL1 knn1000_qL1 cone-knn100_qL1
+python experiments.py --dataset heloc --results_version v5_far --action_strategy proportional --methods training_100 diff_pred_100 diff_label_100 knn1_qL1 knn3_qL1 knn5_qL1 knn10_qL1 knn20_qL1 knn50_qL1 knn100_qL1 knn250_qL1 knn500_qL1 knn1000_qL1 cone-knn100_qL1
+python experiments.py --dataset heloc --results_version v5_far --action_strategy random --methods training_100 diff_pred_100 diff_label_100 knn1_qL1 knn3_qL1 knn5_qL1 knn10_qL1 knn20_qL1 knn50_qL1 knn100_qL1 knn250_qL1 knn500_qL1 knn1000_qL1 cone-knn100_qL1
+
+python experiments.py --dataset wines --results_version v5_close --action_strategy proportional --methods training_100 diff_pred_100 diff_label_100 knn1_qL1 knn3_qL1 knn5_qL1 knn10_qL1 knn20_qL1 knn50_qL1 knn100_qL1 knn250_qL1 knn500_qL1 knn1000_qL1 cone-knn100_qL1
+python experiments.py --dataset wines --results_version v5_close --action_strategy random --methods training_100 diff_pred_100 diff_label_100 knn1_qL1 knn3_qL1 knn5_qL1 knn10_qL1 knn20_qL1 knn50_qL1 knn100_qL1 knn250_qL1 knn500_qL1 knn1000_qL1 cone-knn100_qL1
+python experiments.py --dataset wines --results_version v5_far --action_strategy random --methods training_100 diff_pred_100 diff_label_100 knn1_qL1 knn3_qL1 knn5_qL1 knn10_qL1 knn20_qL1 knn50_qL1 knn100_qL1 knn250_qL1 knn500_qL1 knn1000_qL1 cone-knn100_qL1
+
+
+# Aggregate overriding.
+python experiments.py --dataset heloc --results_version v5_close --override_costs --override_nn --methods training_100 diff_pred_100 diff_label_100 knn1_qL1 knn3_qL1 knn5_qL1 knn10_qL1 knn20_qL1 knn50_qL1 knn100_qL1 knn250_qL1 knn500_qL1 knn1000_qL1 cone-knn100_qL1
+python experiments.py --dataset heloc --results_version v5_far --override_costs --override_nn --methods training_100 diff_pred_100 diff_label_100 knn1_qL1 knn3_qL1 knn5_qL1 knn10_qL1 knn20_qL1 knn50_qL1 knn100_qL1 knn250_qL1 knn500_qL1 knn1000_qL1 cone-knn100_qL1
+python experiments.py --dataset wines --results_version v5_close --override_costs --override_nn --methods training_100 diff_pred_100 diff_label_100 knn1_qL1 knn3_qL1 knn5_qL1 knn10_qL1 knn20_qL1 knn50_qL1 knn100_qL1 knn250_qL1 knn500_qL1 knn1000_qL1 cone-knn100_qL1
+python experiments.py --dataset wines --results_version v5_far --override_costs --override_nn --methods training_100 diff_pred_100 diff_label_100 knn1_qL1 knn3_qL1 knn5_qL1 knn10_qL1 knn20_qL1 knn50_qL1 knn100_qL1 knn250_qL1 knn500_qL1 knn1000_qL1 cone-knn100_qL1
+python experiments.py --dataset lendingclub --results_version v5_close --override_costs --override_nn --methods training_100 diff_pred_100 diff_label_100 knn1_qL1 knn3_qL1 knn5_qL1 knn10_qL1 knn20_qL1 knn50_qL1 knn100_qL1 knn250_qL1 knn500_qL1 knn1000_qL1 cone-knn100_qL1
+python experiments.py --dataset lendingclub --results_version v5_far --override_costs --override_nn --methods training_100 diff_pred_100 diff_label_100 knn1_qL1 knn3_qL1 knn5_qL1 knn10_qL1 knn20_qL1 knn50_qL1 knn100_qL1 knn250_qL1 knn500_qL1 knn1000_qL1 cone-knn100_qL1

@@ -1,0 +1,12 @@
+{
+    "learning_rate": 0.13210893646015595,
+    "max_depth": 1,
+    "min_child_weight": 164,
+    "gamma": 7.2564850709140964,
+    "n_estimators": 326,
+    "subsample": 0.658818049506882,
+    "scale_pos_weight": 0.9219236760124611,
+    "random_state": 2021,
+    "binary_threshold": 0.5,
+    "threshold": 0.39848896861076355
+}
