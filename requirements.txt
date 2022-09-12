@@ -8,7 +8,7 @@ matplotlib==3.3.4
 seaborn==0.11.1
 numba==0.51.2
 joblib==1.0.1
-nbconvert==5.6.1
+nbconvert==6.5.1
 tqdm==4.61.2
 jupyterlab==3.1.6
 ipywidgets==7.6.3
