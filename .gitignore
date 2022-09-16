@@ -137,7 +137,11 @@ dmypy.json
 **/.vscode
 
 **/*.pkl
-**/*.svg
+data
+explanations
+export
+results
+experiments
 models/**/*.bin
 models/**/*.txt
 
