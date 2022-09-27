@@ -5,9 +5,11 @@ from emutils.file import (
     compute_or_load,
     ComputeRequest,
 )
-from emutils.preprocessing import MultiScaler
+from cfshap.utils.preprocessing import MultiScaler
+from cfshap.utils.parallel.utils import max_cpu_count
 
 from utils import *
+from explainers import create_explainers
 
 # Suppress warnings
 import warnings
@@ -90,11 +92,11 @@ DATA_RUN_NAME = f"{args.dataset}_D{args.data_version}"
 FEATURES_FILENAME = f"{args.data_path}/{DATA_RUN_NAME}_features.pkl"
 CLASSES_FILENAME = f"{args.data_path}/{DATA_RUN_NAME}_classes.pkl"
 TRENDS_FILENAME = f"{args.data_path}/{DATA_RUN_NAME}_trends.pkl"
-REFPOINT_FILENAME = f"{args.data_path}/{DATA_RUN_NAME}_ref.pkl"
-MEDIAN_FILENAME = f"{args.data_path}/{DATA_RUN_NAME}_med.pkl"
-MEDIANGOOD_FILENAME = f"{args.data_path}/{DATA_RUN_NAME}_medgood.pkl"
-MEAN_FILENAME = f"{args.data_path}/{DATA_RUN_NAME}_mean.pkl"
-MEANGOOD_FILENAME = f"{args.data_path}/{DATA_RUN_NAME}_meangood.pkl"
+# REFPOINT_FILENAME = f"{args.data_path}/{DATA_RUN_NAME}_ref.pkl"
+# MEDIAN_FILENAME = f"{args.data_path}/{DATA_RUN_NAME}_med.pkl"
+# MEDIANGOOD_FILENAME = f"{args.data_path}/{DATA_RUN_NAME}_medgood.pkl"
+# MEAN_FILENAME = f"{args.data_path}/{DATA_RUN_NAME}_mean.pkl"
+# MEANGOOD_FILENAME = f"{args.data_path}/{DATA_RUN_NAME}_meangood.pkl"
 
 # -> Model
 MODEL_RUN_NAME = f"{DATA_RUN_NAME}M{args.model_version}_{args.model_type}"
@@ -123,12 +125,12 @@ feature_names = load_pickle(FEATURES_FILENAME)
 class_names = load_pickle(CLASSES_FILENAME)
 feature_trends_ = load_pickle(TRENDS_FILENAME)
 feature_trends = feature_trends_ if args.monotonic else None
-ref_points = dict(
-    med=load_pickle(MEDIAN_FILENAME),
-    medgood=load_pickle(MEDIANGOOD_FILENAME),
-    meangood=load_pickle(MEANGOOD_FILENAME),
-    mean=load_pickle(MEAN_FILENAME),
-)
+# ref_points = dict(
+#     med=load_pickle(MEDIAN_FILENAME),
+#     medgood=load_pickle(MEDIANGOOD_FILENAME),
+#     meangood=load_pickle(MEANGOOD_FILENAME),
+#     mean=load_pickle(MEAN_FILENAME),
+# )
 
 multiscaler = MultiScaler(X_train)
 
@@ -157,23 +159,19 @@ print(f"Good : {X_good.shape}")
 print(f'Bad FILTERED (close and far) : {X_bad_filtered.shape}')
 print(f'Explain : {X_explain.shape}')
 
-# %%
-from emutils.parallel.utils import max_cpu_count
-
 # Set number of threads for efficiency.
 model.get_booster().set_param({'nthread': min(15, max_cpu_count() - 1)})
 # %% [markdown]
 # # Explainers
 # Let's set up all the explainers that we want to use
 # %%
-from explainers import create_explainers
 
 # Explainers
 EXPLAINERS = create_explainers(
     X=X_train,
     y=y_train,
     model=model,
-    ref_points=ref_points,
+    ref_points=[],
     multiscaler=multiscaler,
     feature_names=feature_names,
     feature_trends=feature_trends,  # None by default

@@ -16,7 +16,6 @@ import matplotlib as mpl
 import matplotlib.cm
 
 from emutils.utils import keydefaultdict, attrdict
-from emutils.preprocessing import MultiScaler
 from emutils.file import load_pickle, save_pickle
 
 
@@ -314,8 +313,6 @@ def load_data_and_model(dataset, data_version, model_version, args):
     TEST_X_FILENAME = f"{args.data_path}/{DATA_RUN_NAME}_Xtest.pkl"
     TRAIN_Y_FILENAME = f"{args.data_path}/{DATA_RUN_NAME}_ytrain.pkl"
     TEST_Y_FILENAME = f"{args.data_path}/{DATA_RUN_NAME}_ytest.pkl"
-    BAD_FILENAME = f"{args.model_path}/{MODEL_RUN_NAME}_bad.pkl"
-    GOOD_FILENAME = f"{args.model_path}/{MODEL_RUN_NAME}_good.pkl"
     MODELWRAPPER_FILENAME = f"{args.model_path}/{MODEL_RUN_NAME}_model.pkl"
 
     X_train = load_pickle(TRAIN_X_FILENAME, verbose=0)
@@ -325,26 +322,17 @@ def load_data_and_model(dataset, data_version, model_version, args):
     X = pd.concat([X_train, X_test], axis=0)
     y = pd.concat([y_train, y_test], axis=0)
 
-    multiscaler = MultiScaler(X_train)
-
-    try:
-        X_good = load_pickle(GOOD_FILENAME, verbose=0)
-        X_bad = load_pickle(BAD_FILENAME, verbose=0)
-    except:
-        X_good, X_bad = None, None
-
     model = load_pickle(MODELWRAPPER_FILENAME, verbose=0)
 
-    return attrdict(model=model,
-                    multiscaler=multiscaler,
-                    X=X,
-                    y=y,
-                    X_train=X_train,
-                    X_test=X_test,
-                    y_train=y_train,
-                    y_test=y_test,
-                    X_bad=X_bad,
-                    X_good=X_good)
+    return attrdict(
+        model=model,
+        X=X,
+        y=y,
+        X_train=X_train,
+        X_test=X_test,
+        y_train=y_train,
+        y_test=y_test,
+    )
 
 
 def plt_arrow(*args, **kwargs):

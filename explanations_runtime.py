@@ -6,7 +6,7 @@ from emutils.utils import (
     load_pickle,
     save_pickle,
 )
-from emutils.preprocessing import MultiScaler
+from cfshap.utils.preprocessing import MultiScaler
 
 from utils import *
 
@@ -59,11 +59,6 @@ DATA_RUN_NAME = f"{args.dataset}_D{args.data_version}"
 FEATURES_FILENAME = f"{args.data_path}/{DATA_RUN_NAME}_features.pkl"
 CLASSES_FILENAME = f"{args.data_path}/{DATA_RUN_NAME}_classes.pkl"
 TRENDS_FILENAME = f"{args.data_path}/{DATA_RUN_NAME}_trends.pkl"
-REFPOINT_FILENAME = f"{args.data_path}/{DATA_RUN_NAME}_ref.pkl"
-MEDIAN_FILENAME = f"{args.data_path}/{DATA_RUN_NAME}_med.pkl"
-MEDIANGOOD_FILENAME = f"{args.data_path}/{DATA_RUN_NAME}_medgood.pkl"
-MEAN_FILENAME = f"{args.data_path}/{DATA_RUN_NAME}_mean.pkl"
-MEANGOOD_FILENAME = f"{args.data_path}/{DATA_RUN_NAME}_meangood.pkl"
 
 # -> Model
 MODEL_RUN_NAME = f"{DATA_RUN_NAME}M{args.model_version}_{args.model_type}"
@@ -103,20 +98,13 @@ feature_names = load_pickle(FEATURES_FILENAME)
 class_names = load_pickle(CLASSES_FILENAME)
 feature_trends_ = load_pickle(TRENDS_FILENAME)
 feature_trends = feature_trends_ if args.monotonic else None
-ref_points = dict(
-    med=load_pickle(MEDIAN_FILENAME),
-    medgood=load_pickle(MEDIANGOOD_FILENAME),
-    meangood=load_pickle(MEANGOOD_FILENAME),
-    mean=load_pickle(MEAN_FILENAME),
-)
 
 multiscaler = MultiScaler(X_train)
 
 model = load_pickle(MODELWRAPPER_FILENAME)
 preds__ = model.predict(X.values)
-X_good = X[preds__ == 0]
-X_bad = X[preds__ == 1]
 
+X_bad = X[preds__ == 1]
 X_explain = X_bad.values
 
 print(f"Number of Bads : {X_bad.shape}")
@@ -137,7 +125,7 @@ EXPLAINERS = create_explainers(
     X=X_train,
     y=y_train,
     model=model,
-    ref_points=ref_points,
+    ref_points=[],
     multiscaler=multiscaler,
     feature_names=feature_names,
     feature_trends=feature_trends,  # None by default

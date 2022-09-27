@@ -1,6 +1,5 @@
 # %%
 from emutils.imports import *
-from emutils.geometry.metrics import adist
 from emutils.utils import (
     attrdict,
     in_ipynb,
@@ -13,9 +12,10 @@ from emutils.file import (
     compute_or_load,
     ComputeRequest,
 )
-from emutils.preprocessing import MultiScaler
+from emutils.geometry.metrics import adist, get_metric_name
 from emutils.parallel.utils import max_cpu_count
 
+from cfshap.utils.preprocessing import MultiScaler
 from cfshap.evaluation.counterfactuals.plausibility import yNNDistance, NNDistance
 from cfshap.evaluation.attribution.induced_counterfactual import TreeInducedCounterfactualGeneratorV2
 from cfshap.evaluation.attribution import feature_attributions_statistics
@@ -87,11 +87,11 @@ DATA_RUN_NAME = f"{args.dataset}_D{args.data_version}"
 FEATURES_FILENAME = f"{args.data_path}/{DATA_RUN_NAME}_features.pkl"
 CLASSES_FILENAME = f"{args.data_path}/{DATA_RUN_NAME}_classes.pkl"
 TRENDS_FILENAME = f"{args.data_path}/{DATA_RUN_NAME}_trends.pkl"
-REFPOINT_FILENAME = f"{args.data_path}/{DATA_RUN_NAME}_ref.pkl"
-MEDIAN_FILENAME = f"{args.data_path}/{DATA_RUN_NAME}_med.pkl"
-MEDIANGOOD_FILENAME = f"{args.data_path}/{DATA_RUN_NAME}_medgood.pkl"
-MEAN_FILENAME = f"{args.data_path}/{DATA_RUN_NAME}_mean.pkl"
-MEANGOOD_FILENAME = f"{args.data_path}/{DATA_RUN_NAME}_meangood.pkl"
+# REFPOINT_FILENAME = f"{args.data_path}/{DATA_RUN_NAME}_ref.pkl"
+# MEDIAN_FILENAME = f"{args.data_path}/{DATA_RUN_NAME}_med.pkl"
+# MEDIANGOOD_FILENAME = f"{args.data_path}/{DATA_RUN_NAME}_medgood.pkl"
+# MEAN_FILENAME = f"{args.data_path}/{DATA_RUN_NAME}_mean.pkl"
+# MEANGOOD_FILENAME = f"{args.data_path}/{DATA_RUN_NAME}_meangood.pkl"
 
 # -> Model
 MODEL_RUN_NAME = f"{DATA_RUN_NAME}M{args.model_version}_{args.model_type}"
@@ -125,12 +125,12 @@ X, y, X_train, X_test, y_train, y_test = load_data(args)
 feature_names = load_pickle(FEATURES_FILENAME)
 class_names = load_pickle(CLASSES_FILENAME)
 feature_trends = load_pickle(TRENDS_FILENAME)
-ref_points = dict(
-    med=load_pickle(MEDIAN_FILENAME),
-    medgood=load_pickle(MEDIANGOOD_FILENAME),
-    meangood=load_pickle(MEANGOOD_FILENAME),
-    mean=load_pickle(MEAN_FILENAME),
-)
+# ref_points = dict(
+#     med=load_pickle(MEDIAN_FILENAME),
+#     medgood=load_pickle(MEDIANGOOD_FILENAME),
+#     meangood=load_pickle(MEANGOOD_FILENAME),
+#     mean=load_pickle(MEAN_FILENAME),
+# )
 
 multiscaler = MultiScaler(X_train)
 
@@ -311,11 +311,12 @@ _ = save_pickle(induced_counterfactuals, results_filename('induced_counterfactua
 COSTS_NORMALIZATIONS = ['quantile']
 COSTS_AGGREGATIONS = ['L1', 'L2']
 
-
 # %% [markdown]
 # ## Cost of induced counterfactuals
 # Let's compute the cost of the induced counterfactuals
 # %%
+
+
 def nansafe_compute_costs_of(X, XIC, context):
     costs_ = []
     for k in range(XIC.shape[1]):
@@ -447,7 +448,7 @@ def run_experiments_for_nn(
                     scaler=context.multiscaler.get_transformer(cost_normalization),
                     X=context.X_train,
                     n_neighbors=k,
-                    distance=cost_aggregation,
+                    distance=get_metric_name(cost_aggregation),
                     max_samples=MAXSAMPLES,
                 )
                 if ynn_dist:

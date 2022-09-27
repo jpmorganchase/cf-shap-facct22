@@ -30,6 +30,7 @@ def create_counterfactual_explainers(data,
                                      random_state,
                                      verbose,
                                      feature_trends=None):
+
     cf_methods = {
         **dict(
             diff_pred=DifferentPredictionBackgroundGenerator(

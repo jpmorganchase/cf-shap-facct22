@@ -149,3 +149,7 @@ next*
 clean.sh
 
 cf-shap/
+ignore/
+emutils/data/lendingclub
+links.sh
+links_init.py

@@ -91,15 +91,6 @@ MODEL_RUN_NAME = f"{DATA_RUN_NAME}M{args.model_version}_{args.model_type}"
 MODELWRAPPER_FILENAME = f"{args.model_path}/{MODEL_RUN_NAME}_model.pkl"
 MODEL_JSON = MODELWRAPPER_FILENAME.replace('.pkl', '.json')
 
-BAD_FILENAME = f"{args.model_path}/{MODEL_RUN_NAME}_bad.pkl"
-GOOD_FILENAME = f"{args.model_path}/{MODEL_RUN_NAME}_good.pkl"
-
-
-def save_bad_good(X_bad, X_good):
-    save_pickle(X_bad, BAD_FILENAME)
-    save_pickle(X_good, GOOD_FILENAME)
-
-
 # %% [markdown]
 # # Load Data
 # %%
@@ -164,12 +155,3 @@ model.threshold = threshold
 # Save model with the right threhsold
 save_pickle(model, MODELWRAPPER_FILENAME)
 save_json(params, MODEL_JSON)
-
-# %% [markdown]
-# Let's separate good and bad samples
-# %%
-X_good = X_all.values[model.predict(X_all.values) == 0]
-X_bad = X_all.values[model.predict(X_all.values) == 1]
-
-print('Shapes', X_good.shape, X_bad.shape)
-save_bad_good(X_bad, X_good)

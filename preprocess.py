@@ -17,7 +17,7 @@ from emutils.utils import (
     load_pickle,
     save_pickle,
 )
-from emutils.preprocessing import MultiScaler
+# from emutils.preprocessing import MultiScaler
 
 from constants import DATA_DIR
 
@@ -35,7 +35,7 @@ parser.add_argument('--data_version', type=str, default="v2")
 parser.add_argument('--data_path', type=str, default=DATA_DIR, required=False)
 parser.add_argument('--random_state', type=int, default=2021, required=False)
 parser.add_argument('--split_test', type=float, default=.3, required=False)
-parser.add_argument('--scaling', type=str, default=None, choices=['minmax', 'std', 'quantile', 'mad'], required=False)
+# parser.add_argument('--scaling', type=str, default=None, choices=['minmax', 'std', 'quantile', 'mad'], required=False)
 parser.add_argument('--override', dest='override', action='store_true', default=False)
 
 args, unknown = parser.parse_known_args()
@@ -152,11 +152,11 @@ print(X_test.shape, y_test.shape)
 for a_ in [X_train, X_test, y_train, y_test]:
     a_.reset_index(inplace=True, drop=True)
 
-multiscaler = MultiScaler(X_train)
+# multiscaler = MultiScaler(X_train)
 
-X_train = pd.DataFrame(multiscaler.transform(X_train, args.scaling), columns=X_train.columns.values)
-X_test = pd.DataFrame(multiscaler.transform(X_test, args.scaling), columns=X_test.columns.values)
-X = pd.DataFrame(multiscaler.transform(X, args.scaling), columns=X.columns.values)
+# X_train = pd.DataFrame(multiscaler.transform(X_train, args.scaling), columns=X_train.columns.values)
+# X_test = pd.DataFrame(multiscaler.transform(X_test, args.scaling), columns=X_test.columns.values)
+# X = pd.DataFrame(multiscaler.transform(X, args.scaling), columns=X.columns.values)
 
 # %%
 X_train, X_test, y_train, y_test = save_or_load_data(X_train, X_test, y_train, y_test)
@@ -172,19 +172,19 @@ feature_trends = [
 assert np.all(np.array(feature_trends) != 0)
 # %%
 
-median_good = np.median(X[y[TARGET] == 0].values, axis=0)
-median = np.median(X.values, axis=0)
+# median_good = np.median(X[y[TARGET] == 0].values, axis=0)
+# median = np.median(X.values, axis=0)
 
-mean_good = np.mean(X[y[TARGET] == 0].values, axis=0)
-mean = np.mean(X.values, axis=0)
+# mean_good = np.mean(X[y[TARGET] == 0].values, axis=0)
+# mean = np.mean(X.values, axis=0)
 
-pd.DataFrame([median_good, median, mean_good, mean], index=['Median Good', 'Median', 'Mean Good', 'Mean'])
+# pd.DataFrame([median_good, median, mean_good, mean], index=['Median Good', 'Median', 'Mean Good', 'Mean'])
 
 # %%
-save_pickle(median_good, MEDIANGOOD_FILENAME)
-save_pickle(median, MEDIAN_FILENAME)
-save_pickle(mean_good, MEANGOOD_FILENAME)
-save_pickle(mean, MEAN_FILENAME)
+# save_pickle(median_good, MEDIANGOOD_FILENAME)
+# save_pickle(median, MEDIAN_FILENAME)
+# save_pickle(mean_good, MEANGOOD_FILENAME)
+# save_pickle(mean, MEAN_FILENAME)
 
 save_pickle(feature_trends, TRENDS_FILENAME)
 save_pickle(feature_names, FEATURES_FILENAME)
