@@ -100,8 +100,11 @@ git clone https://github.com/jpmorganchase/cf-shap.git
 pip install -e cf-shap
 
 # Download lending club dataset
-# You must setup your Kaggle API in order to dowload this dataset (see Kaggle website at https://www.kaggle.com/docs/api)
-kaggle datasets download --unzip -d wordsforthewise/lending-club -p ./cf-shap/src/emutils/data/lendingclub
+# You must setup your Kaggle API in order to dowload these datasets (see Kaggle website at https://www.kaggle.com/docs/api)
+kaggle datasets download --unzip -d wordsforthewise/lending-club -p ./emutils/data/lendingclub
+kaggle datasets download --unzip -d averkiyoliabev/home-equity-line-of-creditheloc -p ./emutils/data/heloc
+# Wine Quality dataset will be downloaded automatically from the UCI repository upon execution of the experiments
+
 ```
 
 ## 1.3 Run experiments
