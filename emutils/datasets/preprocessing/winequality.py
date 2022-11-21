@@ -7,15 +7,17 @@ from emutils import PACKAGE_DATA_FOLDER
 from emutils.utils import attrdict
 from ._utils import flip_binary_class
 
+from ..uci import download_uci_dataset
+
 
 def load_winequality(
-    base_path=PACKAGE_DATA_FOLDER,
-    directory='winequality',
     type='white',
     red_filename='winequality-red.csv',
     white_filename='winequality-white.csv',
     binary_target_threshold=None,
 ):
+
+    dataset_directory = download_uci_dataset('Wine Quality')
 
     if type == 'white':
         filename = white_filename
@@ -24,7 +26,7 @@ def load_winequality(
     else:
         raise ValueError('Invalid type. It must be either \'red\' or \'white\'')
 
-    data = pd.read_csv(os.path.join(base_path, directory, filename), sep=';')
+    data = pd.read_csv(os.path.join(dataset_directory, filename), sep=';')
 
     if binary_target_threshold is not None:
         data['quality'] = data['quality'].apply(lambda x: (x < binary_target_threshold) * 1)
