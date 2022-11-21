@@ -12,6 +12,7 @@ __all__ = [
 
 KAGGLE_LINK = {
     'lendingclub': 'wordsforthewise/lending-club',
+    'heloc': 'averkiyoliabev/home-equity-line-of-creditheloc',
 }
 
 

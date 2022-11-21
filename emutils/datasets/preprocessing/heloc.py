@@ -5,10 +5,12 @@ import pandas as pd
 from emutils import PACKAGE_DATA_FOLDER
 from emutils.utils import attrdict
 
+from ..kaggle import kaggle_dataset
+
 
 def load_heloc(base_path=PACKAGE_DATA_FOLDER,
                directory='heloc',
-               filename='HELOC.csv',
+               filename='heloc_dataset_v1 (1).csv',
                random_state=2020,
                cleaning_type='default_clean'):
     """"
@@ -45,7 +47,9 @@ def load_heloc(base_path=PACKAGE_DATA_FOLDER,
 
         return data.reset_index(drop=True).copy()
 
-    df = pd.read_csv(os.path.join(base_path, directory, filename))
+    dataset_location = kaggle_dataset('heloc', directory=directory, base_path=base_path)
+
+    df = pd.read_csv(os.path.join(dataset_location, filename))
     if 'default_clean' in cleaning_type:
         df = clean_heloc(df)
 
