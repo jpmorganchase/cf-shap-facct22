@@ -164,7 +164,7 @@ rm -R ./export
 
 ## 2. Contacts
 
-For further information or queries on this work you can contact the _Explainable AI Center of Excellence at J.P. Morgan_ ([xai.coe@jpmchase.com](mailto:xai.coe@jpmchase.com)) or [Emanuele Albini](https://www.emanuelealbini.com), the main author of the paper.
+For further information, questions or issues you can contact [Emanuele Albini](https://www.emanuelealbini.com), the main author of the paper, or the _Explainable AI Center of Excellence at J.P. Morgan_ ([xai.coe@jpmchase.com](mailto:xai.coe@jpmchase.com)).
 
 ## 3. Disclamer
 
