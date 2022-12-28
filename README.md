@@ -4,7 +4,7 @@
 </a>
 
 [![License](https://img.shields.io/github/license/jpmorganchase/cf-shap-facct22)](https://github.com/jpmorganchase/cf-shap-facct22/blob/master/LICENSE)
-[![Contact](https://img.shields.io/badge/contact-Emanuele_Albini-lightgrey)](https://www.emanuelealbini.com)
+[![Contact](https://img.shields.io/badge/contact-Emanuele_Albini-blue)](https://www.emanuelealbini.com)
 
 
 # Counterfactual Shapley Additive Explanations: Experiments
