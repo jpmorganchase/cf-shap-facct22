@@ -26,6 +26,6 @@ cached_property
 dataclasses
 typing_extensions
 lxml>=3.8.0
-tensorflow==2.2.0
+tensorflow==2.11.1
 # cfshap==0.0.1
 
